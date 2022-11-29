@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Repository
+
 public interface ProdutosRepository extends JpaRepository<Produto, Long> {
 
     public List<Produto> findAllByNomeContainingIgnoreCase(@Param("nome") String nome);
