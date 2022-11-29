@@ -12,10 +12,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 @Table(name = "tb_produtos")
 public class Produto {
@@ -27,9 +27,13 @@ public class Produto {
     @NotNull(message = "Nome é obrigatório!")
     private String nome;
 
+    @Size(max=500, message = "A descrição deve ter no máximo 500 caracteres!")
+    private String descricao;
 
-    private int estoque;
+    @NotNull(message = "Console é obrigatório!")
+    private String console;
 
+    private int quantidade;
 
     @Column(name = "data_lancamento")
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -40,7 +44,7 @@ public class Produto {
     @Positive(message = "O preço deve ser maior do que zero!")
     private BigDecimal preco;
 
-    private String imagem;
+    private String foto;
 
     @ManyToOne
     @JsonIgnoreProperties("produto")
@@ -62,16 +66,29 @@ public class Produto {
         this.nome = nome;
     }
 
-    public int estoque() {
-        return estoque;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
+    public String getConsole() {
+        return console;
+    }
 
+    public void setConsole(String console) {
+        this.console = console;
+    }
 
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
 
     public BigDecimal getPreco() {
         return preco;
@@ -81,12 +98,12 @@ public class Produto {
         this.preco = preco;
     }
 
-    public String getImagem() {
-        return this.imagem;
+    public String getFoto() {
+        return this.foto;
     }
 
-    public void setImagem(String imagem) {
-        this.imagem = imagem;
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public LocalDate getDataLancamento() {

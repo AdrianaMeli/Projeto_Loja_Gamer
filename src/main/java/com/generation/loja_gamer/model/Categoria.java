@@ -1,5 +1,4 @@
 package com.generation.loja_gamer.model;
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,11 +12,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
 @Table(name = "tb_categorias")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class Categoria {
 
     @Id
@@ -55,4 +52,6 @@ public class Categoria {
     public void setProduto(List<Produto> produto) {
         this.produto = produto;
     }
+
+
 }
