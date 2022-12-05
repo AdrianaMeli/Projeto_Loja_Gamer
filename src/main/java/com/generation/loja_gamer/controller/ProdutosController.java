@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
@@ -55,21 +55,26 @@ public class ProdutosController {
 
     @PostMapping
     public ResponseEntity<Produto> postProduto(@Valid @RequestBody Produto produto){
-        return categoriaRepository.findById(produto.getCategoria().getId())
-                .map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(produtosRepository.save(produto)))
-                .orElse(ResponseEntity.badRequest().build());
+        if (categoriaRepository.existsById(produto.getCategoria().getId()))
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(produtosRepository.save(produto));
+
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria nao existe!", null);
     }
 
     @PutMapping public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto produto) {
 
         if (produtosRepository.existsById(produto.getId())){
 
-            return categoriaRepository.findById(produto.getCategoria().getId())
-                    .map(resposta -> ResponseEntity.status(HttpStatus.OK).body(produtosRepository.save(produto)))
-                    .orElse(ResponseEntity.badRequest().build());
+            if (categoriaRepository.existsById(produto.getCategoria().getId()))
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(produtosRepository.save(produto));
+
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria nao existe!", null);
+
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
     }
 

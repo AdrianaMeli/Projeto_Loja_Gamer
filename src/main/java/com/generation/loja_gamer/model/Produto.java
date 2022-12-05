@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
@@ -50,6 +51,10 @@ public class Produto {
     @JsonIgnoreProperties("produto")
     private Categoria categoria;
 
+    @ManyToOne
+    @JsonIgnoreProperties("produto")
+    private Usuario usuario;
+
     public Long getId() {
         return id;
     }
@@ -58,7 +63,7 @@ public class Produto {
         this.id = id;
     }
 
-    public String getNome() {
+    public String nome() {
         return nome;
     }
 
@@ -66,7 +71,7 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getDescricao() {
+    public String descricao() {
         return descricao;
     }
 
@@ -74,7 +79,7 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public String getConsole() {
+    public String console() {
         return console;
     }
 
@@ -82,7 +87,7 @@ public class Produto {
         this.console = console;
     }
 
-    public int getQuantidade() {
+    public int quantidade() {
         return quantidade;
     }
 
@@ -90,7 +95,15 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public BigDecimal getPreco() {
+    public LocalDate dataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
+
+    public BigDecimal preco() {
         return preco;
     }
 
@@ -98,20 +111,12 @@ public class Produto {
         this.preco = preco;
     }
 
-    public String getFoto() {
-        return this.foto;
+    public String foto() {
+        return foto;
     }
 
     public void setFoto(String foto) {
         this.foto = foto;
-    }
-
-    public LocalDate getDataLancamento() {
-        return this.dataLancamento;
-    }
-
-    public void setDataLancamento(LocalDate dataLancamento) {
-        this.dataLancamento = dataLancamento;
     }
 
     public Categoria getCategoria() {
@@ -122,4 +127,11 @@ public class Produto {
         this.categoria = categoria;
     }
 
+    public Usuario usuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
